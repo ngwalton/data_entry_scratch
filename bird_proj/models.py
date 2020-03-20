@@ -10,6 +10,9 @@ class Bird(models.Model):
     type = models.CharField(max_length=1, choices=type_choices, null=False, help_text="Type of detection")
     minute = models.PositiveSmallIntegerField(null=False, help_text="Minute of first detection")
 
+    def __str__(self):
+        return str(self.spec_id)
+
 # need additional tables for observer, sid?, entry, sky, and tempc
 class Site(models.Model):
     entry_id = models.AutoField(primary_key=True, db_index=True, editable=False)
@@ -20,9 +23,15 @@ class Site(models.Model):
     sky = models.PositiveSmallIntegerField(null=False, help_text="Sky condition")
     tempc = models.PositiveSmallIntegerField(null=False, help_text="Temperature degrees C")
 
+    def __str__(self):
+        return self.sid
+
 class Alpha(models.Model):
     spec_id = models.AutoField(primary_key=True, db_index=True, editable=False)
     spec = models.CharField(max_length=4,  null=False, unique=True, help_text="Four letter alpha code")
     common = models.CharField(max_length=200, null=False, unique=True, help_text="Common name")
     sci = models.CharField(max_length=200, null=False, unique=True, help_text="Scientific name")
+
+    def __str__(self):
+        return self.spec
 
