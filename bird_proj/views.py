@@ -4,14 +4,14 @@ from django.forms import inlineformset_factory
 
 def index(request, site_id):
     site = Site.objects.get(entry_id=site_id)
-    BirdFormset = inlineformset_factory(Site, Bird, exclude=())
+    BirdFormset = inlineformset_factory(Site, Bird, exclude=(), extra=10)
 
     if request.method == 'POST':
         formset = BirdFormset(request.POST, instance=site)
         if formset.is_valid():
             formset.save()
 
-            return redirect('index', site_id=site.id)
+            return redirect('index', site_id=site.pk)
 
     formset = BirdFormset(instance=site)
 
