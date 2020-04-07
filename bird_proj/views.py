@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from .models import Site, Bird
-from django.forms import inlineformset_factory, modelform_factory
+from django.forms import inlineformset_factory, modelform_factory #, SplitDateTimeWidget
+from django.contrib.auth.decorators import login_required
+# from django.contrib.admin.widgets import AdminSplitDateTime
 
+@login_required
 def index(request, pk):
     site = Site.objects.get(entry_id=pk)
     BirdFormset = inlineformset_factory(Site, Bird, exclude=(), extra=10)
-    SiteForm = modelform_factory(Site, exclude=())
+    SiteForm = modelform_factory(Site, exclude=()) #,
+        # widgets={"day": SplitDateTimeWidget(date_format='%m/%d/%Y', time_format='%H:%M')})
 
     if request.method == 'POST':
         site_form = SiteForm(request.POST, instance=site)
@@ -22,10 +26,11 @@ def index(request, pk):
     return render(request, 'bird_proj/index.html',
         {'formset' : formset, 'site_form':site_form})
 
+@login_required
 def new(request, pk=None):
     site = Site()  # new/empty Site object
     BirdFormset = inlineformset_factory(Site, Bird, exclude=(), extra=10)
-    SiteForm = modelform_factory(Site, exclude=())
+    SiteForm = modelform_factory(Site, exclude=()) #, widgets={"day": SplitDateTimeWidget()})
 
     if request.method == 'POST':
         site_form = SiteForm(request.POST, instance=site)
