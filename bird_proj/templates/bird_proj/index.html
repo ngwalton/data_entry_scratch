@@ -1,4 +1,10 @@
 <!-- based on https://www.djangosnippets.org/snippets/1442/ -->
+
+{% if error_txt %}
+{{ error_txt }}
+<br><br>
+{% endif %}
+
 <form action="" method="post">
     {% csrf_token %}
 

@@ -43,6 +43,10 @@ def new(request, pk=None):
             formset.save()
 
             return redirect('index', pk=site_obj.pk)
+        else:
+            error_txt = "There was an error: please try again"
+            return render(request, 'bird_proj/index.html',
+                {'formset' : formset, 'site_form':site_form, 'error_txt':error_txt})
 
     # queryset = Site.objects.none()
     # formset = BirdFormset(queryset=queryset)
