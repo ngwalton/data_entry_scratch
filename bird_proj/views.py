@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Site, Bird
 from django.forms import inlineformset_factory
 
-def index(request, site_id):
-    site = Site.objects.get(entry_id=site_id)
+def index(request, pk):
+    site = Site.objects.get(entry_id=pk)
     BirdFormset = inlineformset_factory(Site, Bird, exclude=(), extra=10)
 
     if request.method == 'POST':
@@ -11,9 +11,8 @@ def index(request, site_id):
         if formset.is_valid():
             formset.save()
 
-            return redirect('index', site_id=site.pk)
+            return redirect('index', pk=site.pk)
 
     formset = BirdFormset(instance=site)
 
     return render(request, 'bird_proj/index.html', {'formset' : formset})
-
