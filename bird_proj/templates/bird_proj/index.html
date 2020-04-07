@@ -1,6 +1,13 @@
 <!-- based on https://www.djangosnippets.org/snippets/1442/ -->
 <form action="" method="post">
     {% csrf_token %}
+
+    <table>
+    {{ site_form.as_table }}
+    </table>
+
+    <br>
+
     {{ formset.management_form }}
     {{ formset.non_form_errors.as_ul }}
     <table id="formset" class="form">
