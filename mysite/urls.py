@@ -21,5 +21,5 @@ urlpatterns = [
     path('bird_proj/', include('bird_proj.urls')),
     path('admin/', admin.site.urls),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
-    path('accounts/logout/', views.LogoutView.as_view(), name='logout'),
+    path('accounts/logout/', views.LogoutView.as_view(next_page='/bird_proj/new/'), name='logout'),
 ]

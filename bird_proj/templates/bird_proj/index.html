@@ -1,4 +1,6 @@
-<!-- based on https://www.djangosnippets.org/snippets/1442/ -->
+{% extends 'bird_proj/base.html' %}
+
+{% block content %}
 
 {% if error_txt %}
 {{ error_txt }}
@@ -14,6 +16,7 @@
 
     <br>
 
+    <!-- based on https://www.djangosnippets.org/snippets/1442/ -->
     {{ formset.management_form }}
     {{ formset.non_form_errors.as_ul }}
     <table id="formset" class="form">
@@ -41,5 +44,7 @@
             </tr>
         {% endfor %}
     </table>
-    <button type="submit">Save</button>
+    <button type="submit" class="save">Save</button>
 </form>
+
+{% endblock %}
